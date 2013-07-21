@@ -1,20 +1,19 @@
 {
   "name": "alamid-list",
   "version": "0.1.0",
-  "description": "",
-  "main": "./lib/Signal.js",
+  "description": "Simple observable arrays in JavaScript",
+  "main": "./lib/List.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha -R spec"
   },
   "keywords": [
-    "signal",
+    "array",
+    "list",
+    "sequence",
     "observable",
     "reactive",
     "eventemitter",
     "event",
-    "js-signals",
-    "signals",
-    "pub/sub",
     "publish",
     "subscribe",
     "observer",
