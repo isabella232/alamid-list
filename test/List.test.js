@@ -8,13 +8,58 @@ var chai = require("chai"),
 chai.use(require("sinon-chai"));
 
 describe("List", function () {
+
+    describe(".config", function () {
+
+        it("should be an object containing the current config", function () {
+            expect(List.config).to.be.an("object");
+        });
+
+    });
+
+    describe(".configure()", function () {
+
+        function emit() {}
+        function removeAllListeners() {}
+
+        it("should set the given config", function () {
+            List.configure({
+                adapter: {
+                    emit: emit,
+                    removeAllListeners: removeAllListeners
+                }
+            });
+
+            expect(List.config.adapter.emit).to.equal(emit);
+            expect(List.config.adapter.removeAllListeners).to.equal(removeAllListeners);
+        });
+
+    });
+
+    describe(".use()", function () {
+
+        it("should provide an plugin-interface", function () {
+            var plugin = sinon.spy();
+
+            List.use(plugin);
+            expect(plugin).to.have.been.calledWith(List);
+            expect(List.use(plugin)).to.equal(List);
+        });
+
+        it("should be chainable", function () {
+            expect(List.use(function () {})).to.equal(List);
+        });
+
+    });
+
     describe(".prototype", function () {
         var list,
+            emit,
             arr;
 
         beforeEach(function () {
             list = new List();
-            list.emit = sinon.spy();
+            List.config.adapter.emit = emit = sinon.spy();
         });
 
         describe(".constructor()", function () {
@@ -289,8 +334,8 @@ describe("List", function () {
                 var event;
 
                 list.reverse();
-                expect(list.emit.firstCall).to.have.been.calledWith("orderChange");
-                event = list.emit.firstCall.args[1];
+                expect(emit.firstCall).to.have.been.calledWith("orderChange");
+                event = emit.firstCall.args[1];
                 expect(event).to.eql({
                     name: "orderChange",
                     target: list,
@@ -321,8 +366,8 @@ describe("List", function () {
                 var event;
 
                 list.sort();
-                expect(list.emit.firstCall).to.have.been.calledWith("orderChange");
-                event = list.emit.firstCall.args[1];
+                expect(emit.firstCall).to.have.been.calledWith("orderChange");
+                event = emit.firstCall.args[1];
                 expect(event).to.eql({
                     name: "orderChange",
                     target: list,
@@ -388,10 +433,10 @@ describe("List", function () {
                     arr.push(1);
                     list.set(0, "a");
 
-                    expect(list.emit).to.have.been.calledTwice;
+                    expect(emit).to.have.been.calledTwice;
 
-                    expect(list.emit.firstCall).to.have.been.calledWith("remove");
-                    event = list.emit.firstCall.args[1];
+                    expect(emit.firstCall).to.have.been.calledWith("remove");
+                    event = emit.firstCall.args[1];
                     expect(event).to.eql({
                         name: "remove",
                         target: list,
@@ -399,8 +444,8 @@ describe("List", function () {
                         index: 0
                     });
 
-                    expect(list.emit.secondCall).to.have.been.calledWith("add");
-                    event = list.emit.secondCall.args[1];
+                    expect(emit.secondCall).to.have.been.calledWith("add");
+                    event = emit.secondCall.args[1];
                     expect(event).to.eql({
                         name: "add",
                         target: list,
@@ -678,10 +723,10 @@ describe("List", function () {
         function checkIfAddHasBeenEmitted() {
             var event;
 
-            expect(list.emit).to.have.been.calledTwice;
+            expect(emit).to.have.been.calledTwice;
 
-            expect(list.emit.firstCall).to.have.been.calledWith("add");
-            event = list.emit.firstCall.args[1];
+            expect(emit.firstCall).to.have.been.calledWith("add");
+            event = emit.firstCall.args[1];
             expect(event).to.eql({
                 name: "add",
                 target: list,
@@ -690,8 +735,8 @@ describe("List", function () {
             });
             expect(event.target.toArray()[event.index]).to.equal(event.element);
 
-            expect(list.emit.secondCall).to.have.been.calledWith("add");
-            event = list.emit.secondCall.args[1];
+            expect(emit.secondCall).to.have.been.calledWith("add");
+            event = emit.secondCall.args[1];
             expect(event).to.eql({
                 name: "add",
                 target: list,
@@ -704,10 +749,10 @@ describe("List", function () {
         function checkIfRemoveHasBeenEmitted(firstCall, secondCall) {
             var event;
 
-            expect(list.emit).to.have.been.calledTwice;
+            expect(emit).to.have.been.calledTwice;
 
-            expect(list.emit.firstCall).to.have.been.calledWith("remove");
-            event = list.emit.firstCall.args[1];
+            expect(emit.firstCall).to.have.been.calledWith("remove");
+            event = emit.firstCall.args[1];
             expect(event).to.eql({
                 name: "remove",
                 target: list,
@@ -715,8 +760,8 @@ describe("List", function () {
                 index: firstCall.index
             });
 
-            expect(list.emit.secondCall).to.have.been.calledWith("remove");
-            event = list.emit.secondCall.args[1];
+            expect(emit.secondCall).to.have.been.calledWith("remove");
+            event = emit.secondCall.args[1];
             expect(event).to.eql({
                 name: "remove",
                 target: list,
