@@ -2,7 +2,7 @@
 
 var chai = require("chai"),
     sinon = require("sinon"),
-    List = require("../" + require("../package.json").main),
+    List = require("../lib/List.js"),
     expect = chai.expect;
 
 chai.use(require("sinon-chai"));
