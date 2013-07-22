@@ -374,6 +374,44 @@ describe("List", function () {
                 expect(arr[1]).to.equal("c");
             });
 
+            it("should emit an 'add'-event", function () {
+                list.set(0, 1);
+                list.set(1, 2);
+                checkIfAddHasBeenEmitted();
+            });
+
+            describe("if the given index is already occupied", function () {
+
+                it("should emit an 'remove'-event and than an 'add'-event", function () {
+                    var event;
+
+                    arr.push(1);
+                    list.set(0, "a");
+
+                    expect(list.emit).to.have.been.calledTwice;
+
+                    expect(list.emit.firstCall).to.have.been.calledWith("remove");
+                    event = list.emit.firstCall.args[1];
+                    expect(event).to.eql({
+                        name: "remove",
+                        target: list,
+                        element: 1,
+                        index: 0
+                    });
+
+                    expect(list.emit.secondCall).to.have.been.calledWith("add");
+                    event = list.emit.secondCall.args[1];
+                    expect(event).to.eql({
+                        name: "add",
+                        target: list,
+                        element: "a",
+                        index: 0
+                    });
+                    expect(event.target.toArray()[event.index]).to.equal(event.element);
+                });
+
+            });
+
         });
         
         describe(".concat()", function () {
