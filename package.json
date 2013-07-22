@@ -32,10 +32,7 @@
   },
   "testling": {
     "harness" : "mocha",
-    "files": [
-      "test/List.test.js",
-      "test/nodeEvents.test.js"
-    ],
+    "files": "test/List.test.js",
     "browsers": {
       "iexplore": [6, 7, 8, 9, 10],
       "chrome": [15, 20, 25, "canary"],
