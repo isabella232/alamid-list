@@ -1,7 +1,7 @@
 {
   "name": "alamid-list",
   "version": "0.1.0",
-  "description": "Simple observable arrays in JavaScript",
+  "description": "Simple observable arrays",
   "main": "./lib/List.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha -R spec"
@@ -28,11 +28,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/peerigon/alamid-signal.git"
+    "url": "https://github.com/peerigon/alamid-list.git"
   },
   "testling": {
     "harness" : "mocha",
-    "files": "test/List.test.js",
+    "files": "test/*.js",
     "browsers": {
       "iexplore": [6, 7, 8, 9, 10],
       "chrome": [15, 20, 25, "canary"],
