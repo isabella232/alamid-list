@@ -17,14 +17,14 @@
     "publish",
     "subscribe",
     "observer",
-    "promise",
     "notify"
   ],
   "dependencies": {},
   "devDependencies": {
     "mocha": "1.x",
     "chai": "1.x",
-    "sinon-chai": "2.x"
+    "sinon-chai": "2.x",
+    "alamid-sorted-array": "0.x"
   },
   "repository": {
     "type": "git",
