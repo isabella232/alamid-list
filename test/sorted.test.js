@@ -91,10 +91,10 @@ describe("plugins/sorted", function () {
         List.config.adapter.emit = emit = sinon.spy();
         list.sort();
 
-        expect(emit.firstCall).to.have.been.calledWith("orderChange");
+        expect(emit.firstCall).to.have.been.calledWith("sort");
         event = emit.firstCall.args[1];
         expect(event).to.eql({
-            name: "orderChange",
+            name: "sort",
             target: list,
             type: "sort"
         });

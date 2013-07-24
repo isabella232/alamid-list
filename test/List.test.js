@@ -330,14 +330,14 @@ describe("List", function () {
                 expect(arr.reverse).to.have.returned(result);
             });
 
-            it("should emit an 'orderChange'-event", function () {
+            it("should emit an 'sort'-event", function () {
                 var event;
 
                 list.reverse();
-                expect(emit.firstCall).to.have.been.calledWith("orderChange");
+                expect(emit.firstCall).to.have.been.calledWith("sort");
                 event = emit.firstCall.args[1];
                 expect(event).to.eql({
-                    name: "orderChange",
+                    name: "sort",
                     target: list,
                     type: "reverse"
                 });
@@ -362,14 +362,14 @@ describe("List", function () {
                 expect(arr.sort).to.have.returned(result);
             });
 
-            it("should emit an 'orderChange'-event", function () {
+            it("should emit an 'sort'-event", function () {
                 var event;
 
                 list.sort();
-                expect(emit.firstCall).to.have.been.calledWith("orderChange");
+                expect(emit.firstCall).to.have.been.calledWith("sort");
                 event = emit.firstCall.args[1];
                 expect(event).to.eql({
-                    name: "orderChange",
+                    name: "sort",
                     target: list,
                     type: "sort"
                 });
