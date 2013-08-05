@@ -9,14 +9,6 @@ chai.use(require("sinon-chai"));
 
 describe("List", function () {
 
-    describe(".config", function () {
-
-        it("should be an object containing the current config", function () {
-            expect(List.config).to.be.an("object");
-        });
-
-    });
-
     describe(".configure()", function () {
 
         function emit() {}
@@ -24,14 +16,14 @@ describe("List", function () {
 
         it("should set the given config", function () {
             List.configure({
-                adapter: {
+                events: {
                     emit: emit,
                     removeAllListeners: removeAllListeners
                 }
             });
 
-            expect(List.config.adapter.emit).to.equal(emit);
-            expect(List.config.adapter.removeAllListeners).to.equal(removeAllListeners);
+            expect(List.prototype.config.events.emit).to.equal(emit);
+            expect(List.prototype.config.events.removeAllListeners).to.equal(removeAllListeners);
         });
 
     });
@@ -59,7 +51,15 @@ describe("List", function () {
 
         beforeEach(function () {
             list = new List();
-            List.config.adapter.emit = emit = sinon.spy();
+            List.prototype.config.events.emit = emit = sinon.spy();
+        });
+
+        describe(".config", function () {
+
+            it("should be an object containing the current config", function () {
+                expect(List.prototype.config).to.be.an("object");
+            });
+
         });
 
         describe(".constructor()", function () {
