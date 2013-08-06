@@ -1,15 +1,13 @@
 "use strict";
 
-var proto = Watch.prototype;
+var instance = {};
 
 function watch(List) {
-    List.prototype.watch = proto.watch;
-    List.prototype.unwatch = proto.unwatch;
+    List.prototype.watch = instance.watch;
+    List.prototype.unwatch = instance.unwatch;
 }
 
-function Watch() {}
-
-Watch.prototype.watch = function (master) {
+instance.watch = function (master) {
     var prevMaster,
         config,
         on;
@@ -34,7 +32,7 @@ Watch.prototype.watch = function (master) {
     return this;
 };
 
-Watch.prototype.unwatch = function () {
+instance.unwatch = function () {
     var config = this.config.watch,
         master,
         removeListener;
