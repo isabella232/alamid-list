@@ -113,7 +113,10 @@ describe("List", function () {
         describe(".toArray()", function () {
 
             it("should return the internal array", function () {
-                expect(list.toArray()).to.be.an.instanceof(Array);
+                arr = list.toArray();
+                expect(arr).to.be.an.instanceof(Array);
+                list.push(1);
+                expect(arr).to.eql([1]);
             });
 
         });
