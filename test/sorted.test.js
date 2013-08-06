@@ -15,8 +15,6 @@ describe("plugins/sorted", function () {
     function SortedList() {
         List.apply(this, arguments);
     }
-    SortedList.use = List.use;
-    SortedList.prototype = Object.create(List.prototype);
 
     before(function () {
         List.configure({
@@ -24,6 +22,8 @@ describe("plugins/sorted", function () {
                 emit: function () {}
             }
         });
+        SortedList.use = List.use;
+        SortedList.prototype = Object.create(List.prototype);
         SortedList.use(sorted);
     });
 

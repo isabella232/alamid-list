@@ -8,7 +8,8 @@ function nodeEvents(List) {
         key;
 
     events.emit = proto.emit;
-    events.removeAllListeners = proto.removeAllListeners;
+    events.on = proto.on;
+    events.removeListener = proto.removeListener;
 
     for (key in proto) { /* jshint forin: false */
         List.prototype[key] = proto[key];

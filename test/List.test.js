@@ -12,18 +12,21 @@ describe("List", function () {
     describe(".configure()", function () {
 
         function emit() {}
-        function removeAllListeners() {}
+        function on() {}
+        function removeListener() {}
 
         it("should set the given config", function () {
             List.configure({
                 events: {
                     emit: emit,
-                    removeAllListeners: removeAllListeners
+                    on: on,
+                    removeListener: removeListener
                 }
             });
 
             expect(List.prototype.config.events.emit).to.equal(emit);
-            expect(List.prototype.config.events.removeAllListeners).to.equal(removeAllListeners);
+            expect(List.prototype.config.events.on).to.equal(on);
+            expect(List.prototype.config.events.removeListener).to.equal(removeListener);
         });
 
     });
@@ -110,7 +113,10 @@ describe("List", function () {
         describe(".toArray()", function () {
 
             it("should return the internal array", function () {
-                expect(list.toArray()).to.be.an.instanceof(Array);
+                arr = list.toArray();
+                expect(arr).to.be.an.instanceof(Array);
+                list.push(1);
+                expect(arr).to.eql([1]);
             });
 
         });
