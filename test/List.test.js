@@ -14,17 +14,20 @@ describe("List", function () {
         function emit() {}
         function on() {}
         function removeListener() {}
+        function removeAllListeners() {}
 
         it("should set the given config", function () {
             List.configure({
                 emit: emit,
                 on: on,
-                removeListener: removeListener
+                removeListener: removeListener,
+                removeAllListeners: removeAllListeners
             });
 
             expect(List.prototype.config.emit).to.equal(emit);
             expect(List.prototype.config.on).to.equal(on);
             expect(List.prototype.config.removeListener).to.equal(removeListener);
+            expect(List.prototype.config.removeAllListeners).to.equal(removeAllListeners);
         });
 
     });

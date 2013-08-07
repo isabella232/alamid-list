@@ -21,10 +21,11 @@ describe("plugins/watch", function () {
         Slave.configure = List.configure;
         Slave.prototype = Object.create(List.prototype);
         Slave.use(watch);
-        Slave.configure({
+        List.configure({
             emit: emitter.emit,
             on: emitter.on,
-            removeListener: emitter.removeListener
+            removeListener: emitter.removeListener,
+            removeAllListeners: emitter.removeAllListeners
         });
     });
 
