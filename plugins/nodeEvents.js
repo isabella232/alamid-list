@@ -11,6 +11,7 @@ function nodeEvents(List) {
     config.emit = proto.emit;
     config.on = proto.on;
     config.removeListener = proto.removeListener;
+    config.removeAllListeners = proto.removeAllListeners;
 
     for (key in proto) { /* jshint forin: false */
         List.prototype[key] = proto[key];
