@@ -1,6 +1,7 @@
 "use strict";
 
 var chai = require("chai"),
+    sinon = require("sinon"),
     List = require("../lib/List.js"),
     emitter = require("events").EventEmitter.prototype,
     watch = require("../plugins/watch.js"),
@@ -18,7 +19,6 @@ describe("plugins/watch", function () {
 
     before(function () {
         Slave.use = List.use;
-        Slave.configure = List.configure;
         Slave.prototype = Object.create(List.prototype);
         Slave.use(watch);
         List.configure({
@@ -135,6 +135,32 @@ describe("plugins/watch", function () {
                     expect(slave.unwatch()).to.equal(slave);
                 });
 
+            });
+
+        });
+        
+        describe(".dispose()", function () {
+
+            it("should call .unwatch()", function () {
+                var unwatch;
+
+                slave.watch(master);
+                slave.unwatch = unwatch = sinon.spy();
+
+                slave.dispose();
+
+                expect(unwatch).to.have.been.calledOnce;
+            });
+
+            it("should also call List.prototype.dispose()", function () {
+                slave.watch(master);
+                slave.dispose();
+
+                // we cannot just monkey-patch List.prototype.dispose because the
+                // original reference has already been stored by calling
+                // List.use()
+                // That's why we're checking for a side-effect of dispose()
+                expect(slave._elements).to.not.be.ok;
             });
 
         });

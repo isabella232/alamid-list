@@ -3,8 +3,14 @@
 var instance = {};
 
 function watch(List) {
+    var dispose = List.prototype.dispose;
+
     List.prototype.watch = instance.watch;
     List.prototype.unwatch = instance.unwatch;
+    List.prototype.dispose = function () {
+        this.unwatch();
+        dispose.call(this);
+    };
 }
 
 instance.watch = function (master) {
