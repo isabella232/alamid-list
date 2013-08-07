@@ -465,6 +465,26 @@ describe("List", function () {
             });
 
         });
+
+        describe(".dispose()", function () {
+
+            it("should call removeAllListeners() on the set", function () {
+                var removeAllListeners;
+
+                list.config = Object.create(list.config);
+                list.config.removeAllListeners = removeAllListeners = sinon.spy();
+
+                list.dispose();
+
+                expect(removeAllListeners).to.have.been.calledOnce;
+            });
+
+            it("should clear the _elements reference", function () {
+                list.dispose();
+                expect(list._elements).to.not.be.ok;
+            });
+
+        });
         
         describe(".concat()", function () {
             
