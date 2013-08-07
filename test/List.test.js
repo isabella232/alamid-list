@@ -17,16 +17,14 @@ describe("List", function () {
 
         it("should set the given config", function () {
             List.configure({
-                events: {
-                    emit: emit,
-                    on: on,
-                    removeListener: removeListener
-                }
+                emit: emit,
+                on: on,
+                removeListener: removeListener
             });
 
-            expect(List.prototype.config.events.emit).to.equal(emit);
-            expect(List.prototype.config.events.on).to.equal(on);
-            expect(List.prototype.config.events.removeListener).to.equal(removeListener);
+            expect(List.prototype.config.emit).to.equal(emit);
+            expect(List.prototype.config.on).to.equal(on);
+            expect(List.prototype.config.removeListener).to.equal(removeListener);
         });
 
     });
@@ -54,7 +52,7 @@ describe("List", function () {
 
         beforeEach(function () {
             list = new List();
-            List.prototype.config.events.emit = emit = sinon.spy();
+            List.prototype.config.emit = emit = sinon.spy();
         });
 
         describe(".config", function () {

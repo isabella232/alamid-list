@@ -1,19 +1,25 @@
 "use strict";
 
 var EventEmitter = require("events").EventEmitter,
-    instance = EventEmitter.prototype;
+    proto = EventEmitter.prototype;
 
 function nodeEvents(List) {
-    var events = List.prototype.config.events,
+    var config = List.prototype.config,
+        constructor = List.prototype.constructor,
         key;
 
-    events.emit = instance.emit;
-    events.on = instance.on;
-    events.removeListener = instance.removeListener;
+    config.emit = proto.emit;
+    config.on = proto.on;
+    config.removeListener = proto.removeListener;
 
-    for (key in instance) { /* jshint forin: false */
-        List.prototype[key] = instance[key];
+    for (key in proto) { /* jshint forin: false */
+        List.prototype[key] = proto[key];
     }
+
+    List.prototype.constructor = function () {
+        EventEmitter.call(this);
+        constructor.apply(this, arguments);
+    };
 }
 
 module.exports = nodeEvents;

@@ -22,11 +22,9 @@ describe("plugins/watch", function () {
         Slave.prototype = Object.create(List.prototype);
         Slave.use(watch);
         Slave.configure({
-            events: {
-                emit: emitter.emit,
-                on: emitter.on,
-                removeListener: emitter.removeListener
-            }
+            emit: emitter.emit,
+            on: emitter.on,
+            removeListener: emitter.removeListener
         });
     });
 

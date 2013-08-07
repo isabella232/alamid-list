@@ -18,9 +18,7 @@ describe("plugins/sorted", function () {
 
     before(function () {
         List.configure({
-            events: {
-                emit: function () {}
-            }
+            emit: function () {}
         });
         SortedList.use = List.use;
         SortedList.prototype = Object.create(List.prototype);
@@ -39,7 +37,7 @@ describe("plugins/sorted", function () {
     it("should emit events as expected", function () {
         var event;
 
-        List.prototype.config.events.emit = emit = sinon.spy();
+        List.prototype.config.emit = emit = sinon.spy();
         list.push(2, 4, 5);
 
         expect(emit).to.have.been.calledThrice;
@@ -74,7 +72,7 @@ describe("plugins/sorted", function () {
         });
         expect(event.target.toArray()[event.index]).to.equal(event.element);
 
-        List.prototype.config.events.emit = emit = sinon.spy();
+        List.prototype.config.emit = emit = sinon.spy();
         list.pop();
 
         expect(emit).to.have.been.calledOnce;
@@ -88,7 +86,7 @@ describe("plugins/sorted", function () {
             index: 2
         });
 
-        List.prototype.config.events.emit = emit = sinon.spy();
+        List.prototype.config.emit = emit = sinon.spy();
         list.sort();
 
         expect(emit.firstCall).to.have.been.calledWith("sort");

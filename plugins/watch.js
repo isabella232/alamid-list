@@ -12,7 +12,7 @@ instance.watch = function (master) {
         config,
         on;
 
-    on = master.on || master.config.events.on;
+    on = master.on || master.config.on;
 
     if (!this.config.watch) {
         initInstance(this);
@@ -45,7 +45,7 @@ instance.unwatch = function () {
         return this;
     }
 
-    removeListener = master.removeListener || master.config.events.removeListener;
+    removeListener = master.removeListener || master.config.removeListener;
 
     config.master = null;
 
