@@ -20,7 +20,8 @@ instance.watch = function (master) {
 
     on = master.on || master.config.on;
 
-    if (!this.config.watch) {
+    // check for typeof object is necessary since in Firefox there is a Object.prototype.watch method
+    if (typeof this.config.watch !== "object") {
         initInstance(this);
     }
     config = this.config.watch;
