@@ -1,10 +1,10 @@
 {
   "name": "alamid-list",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Simple observable arrays",
   "main": "./lib/List.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha -R spec"
+    "test": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --entry mocha\\!./test/main.js"
   },
   "keywords": [
     "array",
@@ -24,7 +24,10 @@
     "mocha": "1.x",
     "chai": "1.x",
     "sinon-chai": "2.x",
-    "alamid-sorted-array": "0.x"
+    "alamid-sorted-array": "0.x",
+    "webpack-dev-server": "0.x",
+    "mocha-loader": "0.x",
+    "sinon": "git://github.com/cjohansen/Sinon.JS.git"
   },
   "repository": {
     "type": "git",
