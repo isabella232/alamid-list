@@ -4,7 +4,7 @@
   "description": "Simple observable arrays",
   "main": "./lib/List.js",
   "scripts": {
-    "test": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --entry mocha\\!./test/main.js"
+    "test": "node node_modules/mocha/bin/mocha -R spec"
   },
   "keywords": [
     "array",
