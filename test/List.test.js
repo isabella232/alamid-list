@@ -33,13 +33,26 @@ describe("List", function () {
     });
 
     describe(".use()", function () {
+        var plugin,
+            config;
 
-        it("should provide an plugin-interface", function () {
-            var plugin = sinon.spy();
+        beforeEach(function () {
+            plugin = sinon.spy();
+            config = {};
+        });
 
-            List.use(plugin);
-            expect(plugin).to.have.been.calledWith(List);
-            expect(List.use(plugin)).to.equal(List);
+        it("should provide a plugin-interface", function () {
+            List.use(plugin, config);
+            expect(plugin).to.have.been.calledWith(List, config);
+        });
+
+        it("should be usable on other objects too", function () {
+            var otherObj = {
+                use: List.use
+            };
+
+            otherObj.use(plugin);
+            expect(plugin).to.have.been.calledWith(otherObj);
         });
 
         it("should be chainable", function () {
