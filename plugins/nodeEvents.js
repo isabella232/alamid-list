@@ -14,6 +14,9 @@ function nodeEvents(List) {
     config.removeAllListeners = proto.removeAllListeners;
 
     for (key in proto) { /* jshint forin: false */
+        if (List.prototype.hasOwnProperty(key)) {
+            throw new Error("Cannot apply nodeEvents-plugin: There is already a '" + key + "'-property defined.");
+        }
         List.prototype[key] = proto[key];
     }
 

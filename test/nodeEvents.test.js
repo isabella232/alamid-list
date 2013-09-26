@@ -12,10 +12,21 @@ chai.use(require("sinon-chai"));
 describe("plugins/nodeEvents", function () {
     var list;
 
-    it("should adjust the config", function () {
-        List.use(nodeEvents);
-        list = new List();
+    function MyList() {
+        List.apply(this, arguments);
+    }
 
+    before(function () {
+        MyList.prototype = Object.create(List.prototype);
+        MyList.use = List.use;
+        MyList.use(nodeEvents);
+    });
+
+    beforeEach(function () {
+        list = new MyList();
+    });
+
+    it("should adjust the config", function () {
         expect(list.config.emit).to.equal(emitter.emit);
         expect(list.config.on).to.equal(emitter.on);
         expect(list.config.removeListener).to.equal(emitter.removeListener);
@@ -24,9 +35,6 @@ describe("plugins/nodeEvents", function () {
 
     it("should enable working with node's EventEmitter", function () {
         var listener = sinon.spy();
-
-        List.use(nodeEvents);
-        list = new List();
 
         expect(list.on).to.be.a("function");
         expect(list.removeListener).to.be.a("function");
@@ -38,6 +46,18 @@ describe("plugins/nodeEvents", function () {
         list.removeListener("add", listener);
         list.set("greeting", "ahoi");
         expect(listener).to.have.been.calledOnce;
+    });
+
+    it("should throw an error if the target api clashes with the EventEmitter api", function () {
+        function WontWork() {}
+
+        WontWork.prototype = Object.create(List.prototype);
+        WontWork.prototype.on = function () {};
+        WontWork.use = List.use;
+
+        expect(function () {
+            WontWork.use(nodeEvents);
+        }).to.throw(Error, "There is already a 'on'-property defined");
     });
 
 });
