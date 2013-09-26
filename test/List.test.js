@@ -344,9 +344,9 @@ describe("List", function () {
                 expect(emit.firstCall).to.have.been.calledWith("sort");
                 event = emit.firstCall.args[1];
                 expect(event).to.eql({
-                    name: "sort",
+                    type: "sort",
                     target: list,
-                    type: "reverse"
+                    sortType: "reverse"
                 });
             });
 
@@ -376,9 +376,9 @@ describe("List", function () {
                 expect(emit.firstCall).to.have.been.calledWith("sort");
                 event = emit.firstCall.args[1];
                 expect(event).to.eql({
-                    name: "sort",
+                    type: "sort",
                     target: list,
-                    type: "sort"
+                    sortType: "sort"
                 });
             });
 
@@ -445,7 +445,7 @@ describe("List", function () {
                     expect(emit.firstCall).to.have.been.calledWith("remove");
                     event = emit.firstCall.args[1];
                     expect(event).to.eql({
-                        name: "remove",
+                        type: "remove",
                         target: list,
                         element: 1,
                         index: 0
@@ -454,7 +454,7 @@ describe("List", function () {
                     expect(emit.secondCall).to.have.been.calledWith("add");
                     event = emit.secondCall.args[1];
                     expect(event).to.eql({
-                        name: "add",
+                        type: "add",
                         target: list,
                         element: "a",
                         index: 0
@@ -755,7 +755,7 @@ describe("List", function () {
             expect(emit.firstCall).to.have.been.calledWith("add");
             event = emit.firstCall.args[1];
             expect(event).to.eql({
-                name: "add",
+                type: "add",
                 target: list,
                 element: 1,
                 index: 0
@@ -765,7 +765,7 @@ describe("List", function () {
             expect(emit.secondCall).to.have.been.calledWith("add");
             event = emit.secondCall.args[1];
             expect(event).to.eql({
-                name: "add",
+                type: "add",
                 target: list,
                 element: 2,
                 index: 1
@@ -781,7 +781,7 @@ describe("List", function () {
             expect(emit.firstCall).to.have.been.calledWith("remove");
             event = emit.firstCall.args[1];
             expect(event).to.eql({
-                name: "remove",
+                type: "remove",
                 target: list,
                 element: firstCall.element,
                 index: firstCall.index
@@ -790,7 +790,7 @@ describe("List", function () {
             expect(emit.secondCall).to.have.been.calledWith("remove");
             event = emit.secondCall.args[1];
             expect(event).to.eql({
-                name: "remove",
+                type: "remove",
                 target: list,
                 element: secondCall.element,
                 index: secondCall.index
