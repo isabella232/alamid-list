@@ -46,6 +46,12 @@ describe("List", function () {
             expect(plugin).to.have.been.calledWith(List, config);
         });
 
+        it("should apply the same plugin only once", function () {
+            List.use(plugin, config);
+            List.use(plugin, config);
+            expect(plugin).to.have.been.calledOnce;
+        });
+
         it("should be usable on other objects too", function () {
             var otherObj = {
                 use: List.use
