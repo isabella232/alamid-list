@@ -1,6 +1,6 @@
 {
   "name": "alamid-list",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Simple observable arrays",
   "main": "./lib/List.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "harness" : "mocha",
     "files": "test/main.js",
     "browsers": {
-      "iexplore": [7, 8, 9, 10],
+      "iexplore": [9, 10],
       "chrome": [20, 25, "canary"],
       "firefox": [20, 22, "nightly"],
       "safari": [5, 6],
